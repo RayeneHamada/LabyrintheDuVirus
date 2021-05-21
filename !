@@ -1,0 +1,19 @@
+#LINKER_FLAGS specifies the libraries we're linking against
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
+
+game : game.o labyrinthe.o player.o
+	g++ $(LINKER_FLAGS) game.o labyrinthe.o player.o -o game
+
+game.o : game.cpp SDL_FUNCs.h labyrinthe.h virus.h potion.h player.h
+	g++ -c game.cpp
+
+labyrinthe.o : labyrinthe.cpp SDL_FUNCs.h labyrinthe.h
+	g++ -c labyrinthe.cpp
+
+player.o : player.cpp labyrinthe.h player.h
+	g++ -c player.cpp
+
+.PHONY = clean
+
+clean : 
+	rm game *.o
